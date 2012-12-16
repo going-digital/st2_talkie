@@ -725,7 +725,6 @@ shortloop:
       }
 
       Message[MessagePointer] = 0;                                          // One space between words
-      MessagePointer = MessagePointer +1;
       IncomingMax = MessagePointer;
     }
 
