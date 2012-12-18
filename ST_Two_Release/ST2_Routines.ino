@@ -610,7 +610,7 @@ void DisplaySerialData()
     {
       MessagePointer = 0;
       SUBSTATE =3;
-      char Str2[] = "SpikenzieLabs";
+      char Str2[] = "Merry Christmas";
       for(int i =0; i <= sizeof(Str2); i ++)                            // Show default Scrolling message
       {
         IncomingMessage[i] = Str2[i];
@@ -1284,94 +1284,20 @@ void filldigit(int dig, int index)        // Where dig is 1 to 4 and index is po
 
 void writeTime(uint8_t dig1, uint8_t dig2, uint8_t dig3, uint8_t dig4)         
 {
-  int currentdig = 4;
-  int y = 0;
-  int i = 18;
-  LEDMAT[19] = 0;
-//  LEDMAT[0] = 0;
-  
-  for( y =5;y>1;y--)
-  {      
-    if(blinkON && (blinkMin))
-    {
-      LEDMAT[i] = LETTERS[0][y-2];                            // blank space
-    }
-    else
-    {
-      LEDMAT[i] = LETTERS[dig4+digitoffset][y-2]; 
-    }
-    i = i -1;    
-  }    
-  //  }
-
-  for( y =5;y>1;y--)
-  {      
-    if(blinkON && (blinkMin))
-    {
-      LEDMAT[i] = LETTERS[0][y-2];                          // blank space
-    }
-    else
-    {
-      LEDMAT[i] = LETTERS[dig3+digitoffset][y-2]; 
-    }
-    i = i -1;    
-  }    
-  currentdig = 2;
-
-  // ADD Colon Here - S ---------------------------------
-  if((dig2 == 1) || (dig1 == 3)) 
-  {
-    LEDMAT[i] = 0;
-
-    LEDMAT[i-1] = 20; //LETTERS[26][3];                        // the " : "
-
-    LEDMAT[i-2] = 0;
-    i=i-3;     
-  }
-  else
-  {
-    LEDMAT[i] = 20; //LETTERS[26][3];                          // the " :"
-    LEDMAT[i-1] = 0;
-    i=i-2;    
-  }
-  // ADD Colon Here - E ---------------------------------    
-
-  for( y =5;y>1;y--)
-  {      
-    if(blinkON && (blinkHour))
-    {
-      LEDMAT[i] = LETTERS[0][y-2];                          // blank space
-    }
-    else
-    {
-      LEDMAT[i] = LETTERS[dig2+digitoffset][y-2]; 
-    }
-    i = i -1;    
-  }    
-  currentdig = 1;
-
-  for( y =5;y>1;y--)
-  {                  
-    if(blinkON && (blinkHour))
-    {
-      LEDMAT[i] = LETTERS[0][y-2];                          // blank space
-    }
-    else
-    {
-      LEDMAT[i] = LETTERS[dig1+digitoffset][y-2]; 
-    }
-    i = i -1;    
-  }    
-  // i = 0;
-
-  
-//  for(y= i+1; y>0;y--)                                        // Clear any remaining columns
-    for(y= i+1; y>1;y--)                                        // Clear any remaining columns, but not leftmost
-  {
-    LEDMAT[y-1] = 0;
-  }
-
-//  LEDMAT[0] = 0;
+  int y;
+  int i = 19;
+  LEDMAT[i--] = 0;
+  for(y=0;y<3;y++) LEDMAT[i--]=(blinkON && blinkMin) ? 0 : LETTERS[dig4+digitoffset][3-y];  
+  LEDMAT[i--] = 0;
+  for(y=0;y<3;y++) LEDMAT[i--]=(blinkON && blinkMin) ? 0 : LETTERS[dig3+digitoffset][3-y];  
+  LEDMAT[i--] = 0;
+  LEDMAT[i--] = 20;
+  LEDMAT[i--] = 0;
+  for(y=0;y<3;y++) LEDMAT[i--]=(blinkON && blinkHour) ? 0 : LETTERS[dig2+digitoffset][3-y];  
+  LEDMAT[i--] = 0;
+  for(y=0;y<3;y++) LEDMAT[i--]=(blinkON && blinkHour) ? 0 : LETTERS[dig1+digitoffset][3-y];  
+  LEDMAT[i--] = 0;
+ 
   AMPMALARMDOTS = 0;
 
   if(ALARMON && (STATE == 1))                                 // Alarm dot (top left) Do not display while setting alarm
@@ -1391,7 +1317,6 @@ void writeTime(uint8_t dig1, uint8_t dig2, uint8_t dig3, uint8_t dig4)
 //    bitSet(LEDMAT[0],0);
    bitSet(AMPMALARMDOTS,0);
   } 
-  
-  LEDMAT[0] = AMPMALARMDOTS;
-  
+
+  LEDMAT[0] = AMPMALARMDOTS; 
 }
