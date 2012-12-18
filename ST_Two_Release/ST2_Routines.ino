@@ -1304,37 +1304,20 @@ void writeTime(uint8_t dig1, uint8_t dig2, uint8_t dig3, uint8_t dig4)
   }    
   //  }
 
-  if(dig3 == 1)                                              // Special case of #1, smaller kerning
-  {
-    LEDMAT[i] = 0;
+  for( y =5;y>1;y--)
+  {      
     if(blinkON && (blinkMin))
     {
-      LEDMAT[i-1] = 0;                                        // blank space
+      LEDMAT[i] = LETTERS[0][y-2];                          // blank space
     }
     else
     {
-      LEDMAT[i-1] = 62; //LETTERS[dig3+digitoffset][3];
+      LEDMAT[i] = LETTERS[dig3+digitoffset][y-2]; 
     }
-    LEDMAT[i-2] = 0;
-    i = i -3;
-    currentdig = 2;
-  }
-  else
-  {
-    for( y =5;y>1;y--)
-    {      
-      if(blinkON && (blinkMin))
-      {
-        LEDMAT[i] = LETTERS[0][y-2];                          // blank space
-      }
-      else
-      {
-        LEDMAT[i] = LETTERS[dig3+digitoffset][y-2]; 
-      }
-      i = i -1;    
-    }    
-    currentdig = 2;
-  }
+    i = i -1;    
+  }    
+  currentdig = 2;
+
   // ADD Colon Here - S ---------------------------------
   if((dig2 == 1) || (dig1 == 3)) 
   {
@@ -1353,68 +1336,34 @@ void writeTime(uint8_t dig1, uint8_t dig2, uint8_t dig3, uint8_t dig4)
   }
   // ADD Colon Here - E ---------------------------------    
 
-  if(dig2 == 1)                                                // Special case of #1, smaller kerning
-  {
-    LEDMAT[i] = 0;
+  for( y =5;y>1;y--)
+  {      
     if(blinkON && (blinkHour))
     {
-      LEDMAT[i-1] = 0;                                         // blank space
+      LEDMAT[i] = LETTERS[0][y-2];                          // blank space
     }
     else
     {
-      LEDMAT[i-1] = 62; //LETTERS[dig2+digitoffset][3];
+      LEDMAT[i] = LETTERS[dig2+digitoffset][y-2]; 
     }
-    LEDMAT[i-2] = 0;
-    i = i -3;
-    currentdig = 1;
-  }
-  else
-  {
-    for( y =5;y>1;y--)
-    {      
-      if(blinkON && (blinkHour))
-      {
-        LEDMAT[i] = LETTERS[0][y-2];                          // blank space
-      }
-      else
-      {
-        LEDMAT[i] = LETTERS[dig2+digitoffset][y-2]; 
-      }
-      i = i -1;    
-    }    
-    currentdig = 1;
-  }
+    i = i -1;    
+  }    
+  currentdig = 1;
 
-  if(dig1 == 1)                                              // Special case of #1, smaller kerning
-  {
-    LEDMAT[i] = 0;
+  for( y =5;y>1;y--)
+  {                  
     if(blinkON && (blinkHour))
     {
-      LEDMAT[i-1] = 0;                                       // blank space
+      LEDMAT[i] = LETTERS[0][y-2];                          // blank space
     }
     else
     {
-      LEDMAT[i-1] = 62; // LETTERS[dig1+digitoffset][3];
+      LEDMAT[i] = LETTERS[dig1+digitoffset][y-2]; 
     }
-    LEDMAT[i-2] = 0;
-    i = i -2;
-  }
-  else
-  {
-    for( y =5;y>1;y--)
-    {                  
-      if(blinkON && (blinkHour))
-      {
-        LEDMAT[i] = LETTERS[0][y-2];                          // blank space
-      }
-      else
-      {
-        LEDMAT[i] = LETTERS[dig1+digitoffset][y-2]; 
-      }
-      i = i -1;    
-    }    
-   // i = 0;
-  }
+    i = i -1;    
+  }    
+  // i = 0;
+
   
 //  for(y= i+1; y>0;y--)                                        // Clear any remaining columns
     for(y= i+1; y>1;y--)                                        // Clear any remaining columns, but not leftmost
